@@ -1,9 +1,12 @@
+/*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: true, devel: true, node: true*/
+
 var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+    'use strict';
+    res.send('respond with a resource');
 });
 
 module.exports = router;
