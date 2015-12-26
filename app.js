@@ -5,10 +5,11 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var helmet = require('helmet');
 var app = express();
 
 app.use(logger('dev'));
+app.use(helmet());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,10 +37,10 @@ if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         'use strict';
         res.status(err.status || 500);
-        res.send({
+        res.json({
             message: err.message,
             error: err
-        });
+        }).type('json');
     });
 }
 
@@ -48,10 +49,10 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
     'use strict';
     res.status(err.status || 500);
-    res.send({
+    res.json({
         message: err.message,
         error: {}
-    });
+    }).type('json');
 });
 
 
