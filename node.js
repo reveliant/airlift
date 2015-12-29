@@ -8,16 +8,16 @@ var app = require('./app');
 var http = require('http');
 
 /**
- * Set listening from loopback adresses only
- */
-var address = ['127.0.0.1', '::1'];
-app.set('trust proxy', 'loopback');
-
-/**
  * Get port from environment and store in Express.
  */
 var port = normalizePort(process.env.PORT || '28524');
 app.set('port', port);
+
+/**
+ * Set listening from loopback adresses only
+ */
+var address = process.env.PORT ? ['0.0.0.0'] : ['127.0.0.1', '::1'];
+app.set('trust proxy', 'loopback');
 
 /**
  * Create HTTP server on provided port, on loopback interfaces.
