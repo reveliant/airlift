@@ -1,4 +1,4 @@
-/*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: true, devel: true, node: true*/
+/*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: false, devel: true, node: true*/
 
 var express = require('express');
 var helmet = require('helmet');
@@ -40,8 +40,10 @@ app.use(function (req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function (err, req, res, next) {
     'use strict';
-    res.status(err.status || 500);
+    var code = err.status || 500;
+    res.status(code);
     res.json({
+      code: code,
       message: err.message,
       error: err
     });
@@ -52,9 +54,10 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function (err, req, res, next) {
   'use strict';
-  console.error(err);
-  res.status(err.status || 500);
+  var code = err.status || 500;
+  res.status(code);
   res.json({
+    code: code,
     message: err.message,
     error: {}
   });
