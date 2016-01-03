@@ -1,136 +1,79 @@
-/*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: true, devel: true, node: true*/
+/*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: false, devel: true, node: true*/
 
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
+var auth = require('../auth')('types');
+
 var client = require('redis').createClient(process.env.REDIS_URL);
-
-client.on("error", function (err) {
-  console.log("Error " + err);
+client.on('error', function (err) {
+  'use strict';
+  console.log('Error ' + err);
 });
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.post('/', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    xhr: req.xhr
-  });
+  if (req.body.type !== undefined) {
+    // Sanitize new type
+    var newtype = req.body.type;
+
+    if (auth.authorized(req, res, next)) {
+      // TODO Record replacement
+      client.del('types:' + req.params.type);
+      res.json(client.hgetall('types:' + newtype.descriptor));
+    }
+  } else {
+    var err = new Error('Missing payload');
+    err.status = 400;
+  }
 });
 
 router.get('/:type', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  if (auth.authorized(req, res, next)) {
+    res.json(client.hgetall('types:' + req.params.type));
+  }
 });
 
 router.put('/:type', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  if (req.body.type !== undefined) {
+    // Sanitize new type
+    var newtype = req.body.type;
+
+    if (auth.authorized(req, res, next)) {
+      client.hmset('types:' + newtype.descriptor, newtype);
+      client.del('types:' + req.params.type);
+      res.json(client.hgetall('types:' + newtype.descriptor));
+    }
+  } else {
+    var err = new Error('Missing payload');
+    err.status = 400;
+    next(err);
+  }
 });
 
 router.delete('/:type', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  if (auth.authorized(req, res, next)) {
+    if (client.del('types:' + req.params.type)) {
+      res.status(204).end();
+    }
+  }
 });
 
 router.get('/:type/aircrafts', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.get('/:type/flights', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 module.exports = router;
