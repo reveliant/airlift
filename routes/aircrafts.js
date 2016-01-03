@@ -1,7 +1,7 @@
 /*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: false, devel: true, node: true*/
 
-var express = require('express');
-var router = express.Router();
+var router = require('express').Router();
+var auth = require('../auth')('aircrafts');
 
 router.get('/', function (req, res, next) {
   'use strict';
