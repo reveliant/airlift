@@ -5,9 +5,11 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 var helmet = require('helmet');
 var app = express();
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(helmet());
 
