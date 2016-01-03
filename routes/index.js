@@ -6,7 +6,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
     'use strict';
-    res.send('Welcome on Express.js');
+    res.location('//airlift.oxiame.com');
 });
 
 module.exports = router;

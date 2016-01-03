@@ -15,11 +15,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-var routes = require('./routes/index');
-app.use('/', routes);
 
-var users = require('./routes/users');
-app.use('/users', users);
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/flights', require('./routes/flight'));
+app.use('/aircrafts', require('./routes/aircrafts'));
+app.use('/types', require('./routes/types'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
