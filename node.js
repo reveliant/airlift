@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/*jshint nocomma: true, nonew: true, plusplus: true, strict: true, browser: true, devel: true, node: true*/
 
 /**
  * Module dependencies.
@@ -32,6 +32,7 @@ for(var addr in address) {
  * Normalize a port into a number, string, or false.
  */
 function normalizePort(val) {
+    'use strict';
     var port = parseInt(val, 10);
 
     if (isNaN(port)) {
