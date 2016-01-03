@@ -8,26 +8,28 @@ client.on('error', function (err) {
 
 function Auth(component) {
   'use strict';
-  var properties = {};
-  properties.component = component;
+  this.component = component;
+
+  this.authorized = function (req, res, next) {
+    var authorized = false;
+
+    // Check things
+    authorized = true;
+
+    if (! authorized) {
+      var err = new Error('You are not allowed to perform this operation');
+      err.status = 403;
+      next(err);
+    }
+
+    return authorized;
+  };
 }
 
-Auth.prototype.authorized = function (req, res, next) {
+function auth(component) {
   'use strict';
-  var authorized = false;
+  var Authention = new Auth(component);
+  return Authention;
+}
 
-  // Check things
-
-  authorized = true;
-
-  if (! authorized) {
-    var err = new Error('You are not allowed to perform this operation');
-    err.status = 403;
-    next(err);
-  }
-
-  return authorized;
-
-};
-
-module.exports = Auth;
+module.exports = auth;
