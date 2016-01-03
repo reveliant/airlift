@@ -464,7 +464,7 @@ definitions:
         description: 'Total flight time'
       pic:
         type: object
-        description: 'Name of pilot-in-command or null if self'
+        description: 'Name of pilot-in-command or null or empty if self user'
         $ref: '#/definitions/Person'
       landings:
         type: object
@@ -555,7 +555,7 @@ definitions:
         single:
           se: '0:24'
       total: '0:24'
-      pic: null
+      pic: ''
       landings:
         day: 1
       function:
