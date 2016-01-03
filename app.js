@@ -19,7 +19,7 @@ app.use(cookieParser());
 // Routes
 app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
-app.use('/flights', require('./routes/flight'));
+app.use('/flights', require('./routes/flights'));
 app.use('/aircrafts', require('./routes/aircrafts'));
 app.use('/types', require('./routes/types'));
 
