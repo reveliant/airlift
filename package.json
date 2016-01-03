@@ -1,6 +1,7 @@
 {
   "name": "airlift-logbook",
   "version": "1.0.0",
+  "description": "Online EASA pilot logbook API",
   "private": true,
   "scripts": {
     "start": "node node.js"

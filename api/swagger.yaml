@@ -1,0 +1,639 @@
+swagger: '2.0'
+info:
+  title: Airlift API
+  description: Online EASA pilot logbook API
+  version: 1.0.0
+host: api.airlift.oxiame.com
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /flights:
+    get:
+      description: List flights records.
+      tags:
+        - Flights
+      responses:
+        '200':
+          description: An array of flights
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Flight'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      description: Add a flight record.
+      tags:
+        - Flights
+      parameters:
+        - name: flight
+          in: body
+          description: Flight record.
+          required: true
+          schema:
+            $ref: '#/definitions/Flight'
+      responses:
+        '201':
+          description: Created flight record
+          schema:
+            $ref: '#/definitions/Flight'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /flights/{flight_id}:
+    get:
+      description: Get a flight record.
+      tags:
+        - Flights
+      parameters:
+        - name: flight_id
+          in: path
+          description: Flight id
+          required: true
+          type:	string
+      responses:
+        '200':
+          description: Requested flight
+          schema:
+            $ref: '#/definitions/Flight'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: Replace a flight record.
+      tags:
+        - Flights
+      parameters:
+        - name: flight_id
+          in: path
+          description: Flight id
+          required: true
+          type:	string
+        - name: flight
+          in: body
+          description: Flight record.
+          required: true
+          schema:
+            $ref: '#/definitions/Flight'
+      responses:
+        '200':
+          description: Replacing flight record
+          schema:
+            $ref: '#/definitions/Flight'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: Delete a flight record.
+      tags:
+        - Flights
+      parameters:
+        - name: flight_id
+          in: path
+          description: Flight id
+          required: true
+          type:	string
+      responses:
+        '204':
+          description: Flight has been deleted
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /aircrafts:
+    get:
+      description: List registered aircrafts.
+      tags:
+        - Aircrafts
+      responses:
+        '200':
+          description: An array of aircrafts
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Aircraft'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      description: List registered aircrafts.
+      tags:
+        - Aircrafts
+      parameters:
+        - name: aircraft
+          in: body
+          description: Aircraft
+          required: true
+          schema:
+            $ref: '#/definitions/Aircraft'
+      responses:
+        '201':
+          description: Created aircraft
+          schema:
+            $ref: '#/definitions/Aircraft'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /aircraft/{registration}:
+    get:
+      description: Get an aircraft.
+      tags:
+        - Aircrafts
+      parameters:
+        - name: registration
+          in: path
+          description: Registration of aircraft
+          required: true
+          type:	string
+      responses:
+        '200':
+          description: Requested aircraft
+          schema:
+            $ref: '#/definitions/Aircraft'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: Replace an aircraft.
+      tags:
+        - Aircrafts
+      parameters:
+        - name: registration
+          in: path
+          description: Registration of aircraft
+          required: true
+          type:	string
+        - name: aircraft
+          in: body
+          description: Aircraft
+          required: true
+          schema:
+            $ref: '#/definitions/Aircraft'
+      responses:
+        '200':
+          description: Replacing aircraft
+          schema:
+            $ref: '#/definitions/Aircraft'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: Delete an aircraft.
+      tags:
+        - Aircrafts
+      parameters:
+        - name: registration
+          in: path
+          description: Registration of aircraft
+          required: true
+          type:	string
+      responses:
+        '204':
+          description: Aircraft has been deleted
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /aircraft/{registration}/flights:
+    get:
+      description: List flights records with a specific aircraft.
+      tags:
+        - Aircrafts
+        - Flights
+      parameters:
+        - name: registration
+          in: path
+          description: Registration of aircraft
+          required: true
+          type:	string
+      responses:
+        '200':
+          description: An array of flights
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Flight'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /types:
+    get:
+      description: List registered aircraft types.
+      tags:
+        - Types
+      responses:
+        '200':
+          description: An array of aicraft types
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/AircraftType'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      description: List registered aircraft types.
+      tags:
+        - Types
+      parameters:
+        - name: type
+          in: body
+          description: Type
+          schema:
+            type: object
+            $ref: '#/definitions/AircraftType'
+      responses:
+        '201':
+          description: Created aicraft type
+          schema:
+            $ref: '#/definitions/AircraftType'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /types/{type}:
+    get:
+      description: Get an aircraft type.
+      tags:
+        - Types
+      parameters:
+        - name: type
+          in: path
+          description: Type designator
+          required: true
+          type:	string
+      responses:
+        '200':
+          description: Requested aicraft type
+          schema:
+            $ref: '#/definitions/AircraftType'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: Replace an aircraft type.
+      tags:
+        - Types
+      parameters:
+        - name: type
+          in: path
+          description: Type designator
+          required: true
+          type:	string
+        - name: newtype
+          in: body
+          description: Type
+          schema:
+            type: object
+            $ref: '#/definitions/AircraftType'
+      responses:
+        '200':
+          description: Replacing aicraft type
+          schema:
+            $ref: '#/definitions/AircraftType'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      description: Delete an aircraft type.
+      tags:
+        - Types
+      parameters:
+        - name: type
+          in: path
+          description: Type designator
+          required: true
+          type:	string
+      responses:
+        '204':
+          description: Aicraft type has been deleted
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /types/{type}/aircrafts:
+    get:
+      description: List aircrafts of aircraft type.
+      tags:
+        - Types
+        - Aircrafts
+      parameters:
+        - name: type
+          in: path
+          description: Type designator
+          required: true
+          type:	string
+      responses:
+        '200':
+          description: List of aicraft matching the aircraft type
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Aircraft'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /types/{type}/flights:
+    get:
+      description: List flights with this aircraft type.
+      tags:
+        - Types
+        - Flights
+      parameters:
+        - name: type
+          in: path
+          description: Type designator
+          required: true
+          type:	string
+      responses:
+        '200':
+          description: List of flights matching the aircraft type
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Flight'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /me:
+    get:
+      summary: 'User Profile'
+      description: 'The User Profile endpoint returns information about the user that has authorized with the application.'
+      tags:
+        - User
+      responses:
+        '200':
+          description: 'Profile information for a user'
+          schema:
+            $ref: '#/definitions/Profile'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Flight:
+    type: object
+    description: Flight record
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Unique identifier representing the flight.
+      date:
+        type: string
+        format: date
+        description: Date of flight
+      departure:
+        type: object
+        properties:
+          place:
+            type: string
+            description: 'Departure place'
+          time:
+            type: string
+            format: time
+            description: 'Time of departure'
+        required:
+          - place
+      arrival:
+        type: object
+        properties:
+          place:
+            type: string
+            description: 'ICAO Location code for arrival place'
+          time:
+            type: string
+            format: time
+            description: 'Time of arrival'
+        required:
+          - place
+      aircraft:
+        type: object
+        description: 'Aircraft used'
+        $ref: '#/definitions/Aircraft'
+      time:
+        type: object
+        properties:
+          single:
+            type: object
+            description: 'Single pilot flight times'
+            properties:
+              se:
+                type: string
+                format: duration
+                description: 'Single-engine flight time'
+              me:
+                type: string
+                format: duration
+                description: 'Multi-engine flight time'
+          multi:
+            type: object
+            description: 'Multi-pilot flight times'
+            properties:
+              multi:
+                type: string
+                format: duration
+                description: 'Multi-engine flight time'
+              turbine:
+                type: string
+                format: duration
+                description: 'Turbine flight time'
+      total:
+        type: string
+        format: duration
+        description: 'Total flight time'
+      pic:
+        type: object
+        description: 'Name of pilot-in-command or null if self'
+        $ref: '#/definitions/Person'
+      landings:
+        type: object
+        description: 'Landing counts'
+        properties:
+          day:
+            type: integer
+            format: int32
+            description: 'Count of landings at day'
+          night:
+            type: integer
+            format: int32
+            description: 'Count of landings at night'
+        required:
+          - day
+          - night
+      conditions:
+        type: object
+        properties:
+          night:
+            type: string
+            format: duration
+            description: 'Night flight time'
+          ifr:
+            type: string
+            format: duration
+            description: 'Instrument rating (IFR) flight time'
+      function:
+        type: object
+        properties:
+          pic:
+            type: string
+            format: duration
+            description: 'Flight time as pilot-in-command'
+          copilot:
+            type: string
+            format: duration
+            description: 'Flight time as copilot'
+          dual:
+            type: string
+            format: duration
+            description: 'Flight time in dual commands'
+          instructor:
+            type: string
+            format: duration
+            description: 'Flight time as instructor or examiner'
+      synthetic:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+            description: 'Date of synthetic device session'
+          type:
+            type: string
+            description: 'Type of synthetic device session'
+          time:
+            type: string
+            format: duration
+            description: 'Duration of synthetic device session'
+      remark:
+        type: string
+        description: Remarks
+    required:
+      - date
+      - departure
+      - arrival
+      - aircraft
+      - total
+      - pic
+      - landings
+    example:
+      id: 0
+      date: '2016-01-03'
+      departure:
+        place: 'LFPE'
+        time: '09:04:00Z'
+      arrival:
+        place: 'LFPE'
+        time: '09:28:00Z'
+      aircraft:
+        mark: 'Reims Aviation'
+        model: 'F-152'
+        registration: 'F-GABC'
+        type:
+          designator: 'C152'
+      time:
+        single:
+          se: '0:24'
+      total: '0:24'
+      pic: null
+      landings:
+        day: 1
+      function:
+        pic: '0:28'
+      remarks: 'Small flight'
+  Aircraft:
+    type: object
+    description: Aircraft
+    properties:
+      mark:
+        type: string
+        description: 'Manufacturer of aircraft'
+      model:
+        type: string
+        description: 'Model of aircraft'
+      variant:
+        type: string
+        description: 'Variant of aircraft'
+      registration:
+        type: string
+        description: 'Registration of aircraft'
+      type:
+        type: object
+        description: 'ICAO type'
+        $ref: '#/definitions/AircraftType'
+    required:
+      - registration
+    example:
+      mark: 'Cessna'
+      model: '152'
+      variant: 'II'
+      registration: 'OO-KMS'
+      type: 
+        designator: 'C150'
+  AircraftType:
+    type: object
+    description: Aicraft ICAO type
+    properties:
+      designator:
+        type: string
+        description: 'ICAO type designator'
+    required:
+      - designator
+    example:
+      designator: 'C150'
+  Profile:
+    type: object
+    properties:
+      self:
+        type: object
+        $ref: '#/definitions/Person'
+      email:
+        type: string
+        description: 'Email address of the user'
+      picture:
+        type: string
+        description: 'Image URL of the user'
+  Person:
+    type: object
+    properties:
+      firstname:
+        type: string
+        description: 'First name (surname)'
+      lastname:
+        type: string
+        description: 'Last name (family name)'
+    required:
+      - lastname
+    example:
+      firstname: 'John'
+      lastname: 'Doe'
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
