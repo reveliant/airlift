@@ -267,13 +267,13 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /types/{type}:
+  /types/{Type}:
     get:
       description: Get an aircraft type.
       tags:
         - Types
       parameters:
-        - name: type
+        - name: Type
           in: path
           description: Type designator
           required: true
@@ -292,7 +292,7 @@ paths:
       tags:
         - Types
       parameters:
-        - name: type
+        - name: Type
           in: path
           description: Type designator
           required: true
@@ -317,7 +317,7 @@ paths:
       tags:
         - Types
       parameters:
-        - name: type
+        - name: Type
           in: path
           description: Type designator
           required: true
@@ -329,14 +329,14 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /types/{type}/aircrafts:
+  /types/{Type}/aircrafts:
     get:
       description: List aircrafts of aircraft type.
       tags:
         - Types
         - Aircrafts
       parameters:
-        - name: type
+        - name: Type
           in: path
           description: Type designator
           required: true
@@ -352,14 +352,14 @@ paths:
           description: Unexpected error
           schema:
             $ref: '#/definitions/Error'
-  /types/{type}/flights:
+  /types/{Type}/flights:
     get:
       description: List flights with this aircraft type.
       tags:
         - Types
         - Flights
       parameters:
-        - name: type
+        - name: Type
           in: path
           description: Type designator
           required: true
