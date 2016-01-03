@@ -5,108 +5,32 @@ var auth = require('../auth')('aircrafts');
 
 router.get('/', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.post('/', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.get('/:aircraft', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.put('/:aircraft', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.delete('/:aircraft', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.get('/:aircraft/flights', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 module.exports = router;

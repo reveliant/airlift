@@ -5,90 +5,27 @@ var auth = require('../auth')('flights');
 
 router.get('/', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.post('/', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.get('/:flight', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.put('/:flight', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 router.delete('/:flight', function (req, res, next) {
   'use strict';
-  res.json({
-    body: req.body,
-    cookies: req.cookies,
-    ip: req.ip,
-    params: req.params,
-    query: req.query,
-    route: req.route,
-    client: {
-      user: req.get('X-Airlift-User'),
-      token: req.get('X-Airlift-Token')
-    },
-    user: req.params.name,
-    xhr: req.xhr
-  });
+  res.json({});
 });
 
 module.exports = router;
