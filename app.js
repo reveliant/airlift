@@ -18,14 +18,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  'use strict';
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
 // error handlers
 
 // development error handler
@@ -62,5 +54,13 @@ app.use('/users', require('./routes/users'));
 app.use('/flights', require('./routes/flights'));
 app.use('/aircrafts', require('./routes/aircrafts'));
 app.use('/types', require('./routes/types'));
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  'use strict';
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
 module.exports = app;
