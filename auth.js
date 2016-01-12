@@ -28,8 +28,8 @@ function Auth(component) {
 
 function auth(component) {
   'use strict';
-  var Authention = new Auth(component);
-  return Authention;
+  var Authentication = new Auth(component);
+  return Authentication;
 }
 
 module.exports = auth;

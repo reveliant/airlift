@@ -55,6 +55,13 @@ app.use('/flights', require('./routes/flights'));
 app.use('/aircrafts', require('./routes/aircrafts'));
 app.use('/types', require('./routes/types'));
 
+app.all('*', function(req, res, next) {
+  'use strict';
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   'use strict';

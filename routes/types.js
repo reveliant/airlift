@@ -34,8 +34,12 @@ router.post('/', function (req, res, next) {
 
 router.get('/:type', function (req, res, next) {
   'use strict';
+  var type = null;
   if (auth.authorized(req, res, next)) {
-    res.json(client.hgetall('types:' + req.params.type));
+    client.hgetall('types:' + req.params.type, function (err, obj) {
+      type = obj;
+    }
+    res.json(type);
   }
 });
 
