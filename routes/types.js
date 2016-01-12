@@ -38,7 +38,7 @@ router.get('/:type', function (req, res, next) {
   if (auth.authorized(req, res, next)) {
     client.hgetall('types:' + req.params.type, function (err, obj) {
       type = obj;
-    }
+    });
     res.json(type);
   }
 });
