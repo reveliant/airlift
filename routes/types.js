@@ -34,13 +34,13 @@ router.post('/', function (req, res, next) {
 
 router.get('/:type', function (req, res, next) {
   'use strict';
-  var type = null;
   if (auth.authorized(req, res, next)) {
-    client.hgetall('types:' + req.params.type, function (err, obj) {
-      console.log(obj);
-      type = obj;
-    });
-    res.json(type);
+    if (! client.hgetall('types:' + req.params.type, function (err, obj) {
+      res.json(obj);
+    })) {
+      var err = new Error('Unknown type');
+      err.status = 404;
+    }
   }
 });
 
